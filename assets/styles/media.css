@@ -1,0 +1,112 @@
+/* @media screen and (min-width: 1280px) {} */
+@media screen and (max-width: 1279px) {
+	.right {
+		width: 240px;
+	}
+	.right-hq-row a {
+		word-break: break-all;
+	}
+}
+@media screen and (min-width: 1111px) {
+	.btns-back-next .icon-arr-l:before,
+	.votenav-progress,
+	#right-close {
+		display: none;
+	}
+}
+@media screen and (max-width: 1110px) {
+	/*-b-text-popup-------------------------------------*/
+	.text-popup {
+		
+	}
+	/*-e-text-popup-------------------------------------*/
+
+	h2, .h2 {
+		font-size: 20px;
+		line-height: 23px;
+	}
+
+	/*-b-XProxyForm-------------------------------------*/
+	/*-b-left---*/
+	.left {
+		display: none;
+	}
+	/*-e-left---*/
+
+	/*-b-right--*/
+	.right {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		bottom: unset;
+		transform: translateY(-100%);
+		visibility: hidden;
+		transition: transform 0.3s ease, visibility 0s linear 0.3s;
+	}
+	.right.active {
+		transform: translateY(0%);
+		visibility: visible;
+		transition: transform 0.3s ease, visibility 0s linear 0s;
+	}
+	.right-top {
+		display: none;
+	}
+	.right-hq {
+		align-items: center;
+		padding: 0 0 7px;
+	}
+	.right-hq-title {
+		background-color: var(--main-dark);
+		padding: 35px 0 31px;
+		margin: 0 0 43px;
+		width: 100%;
+		justify-content: center;
+	}
+	.right-hq-title .h2 {
+		width: 295px;
+		color: #fff;
+	}
+	#right-close {
+		position: absolute;
+		top: 36px;
+		left: calc(50% + 155px);
+	}
+	#right-close:before {
+		color: #fff;
+	}
+
+	.right-hq-row {
+		width: 295px;
+		margin: 0 0 40px;
+	}
+	.right-hq-row a {
+		font-size: 20px;
+		line-height: 23px;
+	}
+	/*-e-right--*/
+
+	.votenav-progress {
+		display: flex;
+		flex-direction: column;
+	}
+	.votenav-text {
+		display: flex;
+		color: var(--medium-gray);
+	}
+	.btns-back-next .btn {
+		width: 48px;
+		height: 48px;
+		font-size: 0;
+		color: transparent;
+	}
+	.btns-back-next .btn:before {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 12px;
+	}
+	.votenav-next:before {
+		transform: rotate(180deg);
+	}
+	/*-e-XProxyForm-------------------------------------*/
+}
