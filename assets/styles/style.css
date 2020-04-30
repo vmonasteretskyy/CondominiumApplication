@@ -770,7 +770,8 @@ body.voting .right {
 .vote-num {
 	background-color: white;
 	color: var(--main-dark);
-	margin: 0 26px 0 auto;
+	/* margin: 0 26px 0 auto; */
+	margin: 0 0 0 auto;
 	padding: 7px 14px 5px;
 	border-radius: 4px;
 	font-size: 14px;
@@ -785,7 +786,7 @@ body.voting .right {
 	transition: opacity 0.3s ease 0s, visibility 0s linear 0s;
 }
 
-.vote-variant .icon-cross {
+/* .vote-variant .icon-cross {
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease 0s, visibility 0s linear 0.3s;
@@ -799,6 +800,9 @@ body.voting .right {
 .vote-variant .icon-cross:before {
 	font-size: 17.5px;
 	color: white;
+} */
+.vote-variant .icon-cross {
+	display: none;
 }
 
 .vote-optional {
