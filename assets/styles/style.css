@@ -23,6 +23,7 @@ body {
 	line-height: 21px;
 	color: var(--main-dark);
 	background-color: var(--bg);
+	overflow-x: hidden;
 }
 
 .smaller {
@@ -48,7 +49,7 @@ h2, .h2 {
 	font-weight: 500;
 	text-transform: uppercase;
 }
-h3 .h3 {
+h3, .h3 {
 	font-size: 12px;
 	line-height: 14px;
 	font-weight: 700;
@@ -302,6 +303,11 @@ input:invalid, input.invalid {
 	display: flex;
 	align-items: center;
 }
+.btn.devclose {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
 /*-e-all--------------------------------------------*/
 
 
@@ -353,6 +359,165 @@ input:invalid, input.invalid {
 
 
 
+
+/*-b-login------------------------------------------*/
+.login {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transform: translateY(-100%);
+	visibility: hidden;
+	transition: transform 0.3s ease, visibility 0s linear 0.3s;
+	background-color: #fff;
+	z-index: 100;
+}
+.login.active {
+	visibility: visible;
+	transform: translateY(0);
+	transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+/*-e-login------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+/*-b-forgot-pswd------------------------------------*/
+.forgot-pswd {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transform: translateY(-100%);
+	visibility: hidden;
+	transition: transform 0.3s ease, visibility 0s linear 0.3s;
+	background-color: #fff;
+	z-index: 110;
+}
+.forgot-pswd.active {
+	visibility: visible;
+	transform: translateY(0);
+	transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+/*-e-forgot-pswd------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+/*-b-lcypv------------------------------------------*/
+.lcypv {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transform: translateY(-100%);
+	visibility: hidden;
+	transition: transform 0.3s ease, visibility 0s linear 0.3s;
+	background-color: #fff;
+	z-index: 120;
+}
+.lcypv.active {
+	visibility: visible;
+	transform: translateY(0);
+	transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+
+/*-b-page-parts-*/
+/*-page-top-*/
+.page-top {
+	padding: 65px 0 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.page-top .h1,
+.page-top h1 {
+	margin: 45px 0 20px;
+}
+.page-top p {
+	margin: 0 0 40px;
+}
+
+/*-page-mid-*/
+.page-mid {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.page-mid .h3,
+.page-mid h3 {
+	margin: 0 0 60px;
+}
+.page-mid .btn.accent {
+	margin: 0 0 30px;
+}
+.page-mid .link.smaller {
+	text-transform: unset;
+}
+/*-e-page-parts-*/
+
+.lcypv .page-top .icon-file:before {
+	color: var(--primary-blue);
+	font-size: 50px;
+}
+/*-e-lcypv------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+/*-b-osanc------------------------------------------*/
+.osanc {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transform: translateY(-100%);
+	visibility: hidden;
+	transition: transform 0.3s ease, visibility 0s linear 0.3s;
+	background-color: #fff;
+	z-index: 100;
+}
+.login.active {
+	visibility: visible;
+	transform: translateY(0);
+	transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+/*-e-osanc------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
 /*-b-XProxyForm-------------------------------------*/
 /*-b-left---*/
 .left {
@@ -366,6 +531,11 @@ input:invalid, input.invalid {
 	background-color: #fff;
 	box-shadow: 2px 0px 10px var(--main-dark-006);
 	z-index: 10;
+	transform: translateX(-100%);
+	transition: transform 0.3s ease;
+}
+body.voting .left {
+	transform: translateX(0);
 }
 .left-top {
 	position: relative;
@@ -464,6 +634,11 @@ input:invalid, input.invalid {
 	background-color: #fff;
 	box-shadow: -2px 0px 10px var(--main-dark-006);
 	z-index: 10;
+	transform: translateX(100%);
+	transition: transform 0.3s ease;
+}
+body.voting .left {
+	transform: translateX(0);
 }
 .right-top {
 	position: relative;
@@ -521,16 +696,32 @@ input:invalid, input.invalid {
 	display: flex;
 	flex-direction: column;
 }
+#pg-slider-hider {
+	overflow: hidden;
+}
+#pg-slider {
+	position: relative;
+	display: flex;
+}
+.pg-elem {
+	width: 100%;
+	flex-shrink: 0;
+}
 .xproxyform .icon-non-leased:before {
 	margin: 1px 10px 0 2px;
 }
 .xproxyform h1 + p {
 	margin: 0 0 30px;
 }
-.vote-top {
+.input-top {
 	display: flex;
 	justify-content: space-between;
 	margin: 0 0 10px;
+}
+.input-top p {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: var(--medium-gray);
 }
 #vote-limit:before { content: "/";}
 

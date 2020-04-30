@@ -64,3 +64,19 @@ function checkEclipse() {
 		Eclipse.opened = false;
 	}
 }
+
+onLoaded.push(function() {
+	var eyes = document.getElementsByClassName("icon-eye");
+	if (eyes.length != 0) {
+		for (var i = 0; i < eyes.length; i++) {
+			const ci = i;
+			var input = eyes[ci].parentNode.getElementsByTagName("input")[0];
+			eyes[ci].onmousedown = function() {
+				input.type = "text";
+			};
+			eyes[ci].onmouseup = function() {
+				input.type = "password";
+			};
+		}
+	}
+});
