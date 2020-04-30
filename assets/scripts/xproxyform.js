@@ -1,3 +1,58 @@
+class PgNav {
+	constructor(screens) {
+		this.screens = screens;
+		for (var i = 0; i < this.screens.length; i++) {
+			const ci = i;
+			if (this.screens[ci].next) {
+				var parent = this;
+				this.screens[ci].next.onclick = function() {
+					// hide this screen
+					parent.screens[ci].elem.classList.remove("active");
+					// some action after hiding
+					if (parent.screens[ci].classes.length) {
+						for (var j = 0; j < parent.screens[ci].classes.length; j++) {
+							const cj = j;
+							if (parent.screens[ci].classes[cj].add) {
+								document.querySelector(parent.screens[ci].classes[cj].whom).classList.add(
+									parent.screens[ci].classes[cj].className
+								);
+							} else {
+								document.querySelector(parent.screens[ci].classes[cj].whom).classList.remove(
+									parent.screens[ci].classes[cj].className
+								);
+							}						
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+var pgNav = undefined;
+onLoaded.push(function() {
+	pgNav = new PgNav([
+		{
+			// start 
+			allow: true,
+			elem: document.getElementsByClassName("lcypv")[0], 
+			next: document.getElementById("lcypv-btn"),
+			classes: [
+				{
+					add: true,
+					whom: "body",
+					className: "voting",
+				},
+			]
+		},
+		{
+			// pg-slider
+			allow: false,
+			elem: document.getElementsByClassName("xproxyform")[0],
+		},
+	]);
+});
+
 class PgSlider {
 	constructor(params = {
 		hiderId: undefined,
@@ -15,8 +70,11 @@ class PgSlider {
 		this.nexts = document.getElementsByClassName(this.params.nexts);
 		this.conts = document.getElementsByClassName(this.params.conts);
 
+		this.now = 0;
 		this.amount = this.slides.length;
-		this.allowNext = new Array(this.amount);
+		this.allowNext = new Array(this.amount).fill(false);
+
+		this.allowNext[0] = true;
 		
 		console.log(this)
 
@@ -44,7 +102,6 @@ class PgSlider {
 			this.conts[ci].onclick = function() {
 
 			}
-			
 		}
 	}
 }
@@ -234,7 +291,7 @@ class CVote {
 	}
 
 	getResult() {
-		return;
+		return this.result;
 	}
 }
 

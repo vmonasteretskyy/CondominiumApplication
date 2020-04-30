@@ -58,7 +58,7 @@
 
 
 <!-- begin-page -------------------------------------------------------------------->
-<section class="lcypv">
+<section class="lcypv active">
 	<div class="wrap">
 		<div class="page-top">
 			<div class="icon-file"></div>

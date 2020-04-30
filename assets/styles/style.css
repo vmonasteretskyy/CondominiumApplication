@@ -637,7 +637,7 @@ body.voting .left {
 	transform: translateX(100%);
 	transition: transform 0.3s ease;
 }
-body.voting .left {
+body.voting .right {
 	transform: translateX(0);
 }
 .right-top {
