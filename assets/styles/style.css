@@ -897,6 +897,9 @@ body.voting .right {
 	opacity: 1;
 	pointer-events: auto;
 }
+.pg-elem.next .pgnav-next:hover {
+	opacity: 0.9;
+}
 .pg-elem:first-child .pgnav-prev {
 	display: none;
 }
