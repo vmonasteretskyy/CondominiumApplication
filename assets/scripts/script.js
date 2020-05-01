@@ -1,4 +1,8 @@
-var Info = {}
+var Info = {
+	vw: 0,
+	vh: 0,
+	mobile: false,
+}
 var Eclipse = {
 	elem: undefined,
 	opened: false,
@@ -6,12 +10,14 @@ var Eclipse = {
 	arr: [],
 }
 document.addEventListener("DOMContentLoaded", function(event) {
+	resizeFunc();
 	if (onLoaded.length != 0) {
 		for (var i = 0; i < onLoaded.length; i++) {
 			onLoaded[i]();
 		}
 	}
 	window.addEventListener("resize", function() {
+		resizeFunc();
 		if (onResize.length != 0) {
 			for (var i = 0; i < onResize.length; i++) {
 				onResize[i]();
@@ -19,6 +25,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}	
 	});
 });
+function resizeFunc() {
+	Info.vw = window.innerWidth;
+	Info.vh = window.innerHeight;
+	if (Info.vw < 1111) {
+		Info.mob = true;
+	} else {
+		Info.mob = false;
+	}
+}
 
 onLoaded.push(function() {
 	/*-init-eclipse-*/
@@ -46,12 +61,62 @@ onLoaded.push(function() {
 	}
 });
 
-function openPopup(id) {
-	var elem = document.getElementById(id);
+function openPopup(idDesc, idMob = undefined) {
+	var elem = undefined;
+	if (!idMob) { 
+		elem = document.getElementById(idDesc);
+	} else {
+		if (Info.mobile) {
+			elem = document.getElementById(idMob);
+		} else {
+			elem = document.getElementById(idDesc);
+		}
+	}
 	elem.classList.add("active");
 	Eclipse.arr.push(elem);
 	Eclipse.count++;
 	checkEclipse();
+}
+
+onLoaded.push(function() {
+	var parents = document.getElementsByClassName("parent-calc-h");
+	var elems = document.getElementsByClassName("calc-h");
+	if (parents.length == 0) {return;}
+	if (parents.length != elems.length) {
+		console.warn("Accordions layout is incorrect! Correct: ('.parent-calc-h' > '.calc-h)");
+		return;
+	}
+	for (var i = 0; i < parents.length; i++) {
+		const ci = i;
+		parents[ci].style.height = elems[ci].getBoundingClientRect().height + "px";
+	}
+	var close = document.getElementsByClassName("accordion-close");
+	for (var i = 0; i < close.length; i++) {
+		const ci = i;
+		close[ci].onclick = function() {
+			console.log(this, this.closest(".parent-calc-h"))
+			this.closest(".parent-calc-h").classList.add("hidden");
+		}
+		
+	}
+});
+function openHPopup(idDesc, idMob) {
+	var elem = undefined;
+	console.log(idDesc, idMob)
+	if (!idMob) { 
+		elem = document.getElementById(idDesc);
+	} else {
+		if (Info.mobile) {
+			elem = document.getElementById(idMob);
+			elem.classList.add("active");
+			Eclipse.arr.push(elem);
+			Eclipse.count++;
+			checkEclipse();
+		} else {
+			elem = document.getElementById(idDesc);
+			elem.classList.remove("hidden");
+		}
+	}
 }
 
 function checkEclipse() {

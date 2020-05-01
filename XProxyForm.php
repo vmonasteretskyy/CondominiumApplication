@@ -108,9 +108,15 @@
 </section>
 
 <section class="right">
-	<div class="right-top">
-		<i class="icon-info"></i>
-		<span class="h2">Help</span>
+	<div class="right-top parent-calc-h hidden" id="right-help-accordion">
+		<div class="right-top-inner calc-h">
+			<div class="row">
+				<i class="icon-info"></i>
+				<span class="h2">Help</span>
+				<button type="button" class="icon-cross accordion-close"></button>
+			</div>
+			<p><b>The non-leased voting unit director position</b> on the board is reserved for voting by owners of non-leased units.</p>
+		</div>
 	</div>
 	<div class="right-hq">
 		<div class="right-hq-title">
@@ -165,7 +171,7 @@
 			<div class="pg-elem">
 				<div class="wrap">
 					<h1 class="icon-non-leased">Non-leased unit election</h1>
-					<p>Which cand(s) do you vote to elect for the <a class="slink" onclick="openPopup('non-leased-popup')"><span class="bef"><</span><span class="sunderline">non-leased voting unit director position</span><span class="aft">></span> <i class="icon-info-hovering"></i></a> on the board</p>
+					<p>Which cand(s) do you vote to elect for the <a class="slink" onclick="openHPopup('right-help-accordion', 'non-leased-popup')"><span class="bef"><</span><span class="sunderline">non-leased voting unit director position</span><span class="aft">></span> <i class="icon-info-hovering"></i></a> on the board</p>
 					
 					<div class="input-top h3">
 						<p>You may vote for up to 0 cand(s)</p>
