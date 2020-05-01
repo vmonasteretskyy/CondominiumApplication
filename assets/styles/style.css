@@ -115,6 +115,9 @@ button {
 	border: none;
 	background-color: transparent;
 }
+button:focus {
+	outline: none;
+}
 
 /*-b-btn--------------*/
 .btn {
