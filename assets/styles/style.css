@@ -72,10 +72,29 @@ p b {
 	color: var(--main-dark);
 	transition: opacity 0.3s ease;
 }
-.link:hover {
+.slink {
+	transition: opacity 0.3s ease;
+	font-size: inherit;
+	line-height: inherit;
+	font-weight: inherit;
+	cursor: pointer;
+	/* text-transform: uppercase; */
+}
+.sunderline {
+	text-decoration: underline;
+	color: var(--main-dark);
+	transition: opacity 0.3s ease;
+}
+.slink .bef {
+}
+.slink .aft {}
+
+.link:hover,
+.slink:hover .sunderline {
 	opacity: 0.9;
 }
-.link:disabled {
+.link:disabled,
+.slink:disabled {
 	opacity: 0.4;
 }
 .link.smaller {
@@ -825,5 +844,9 @@ body.voting .right {
 }
 .votenav-limit:before {
 	content: "/";
+}
+
+.pg-elem .pgnav-next {
+
 }
 /*-e-XProxyForm-------------------------------------*/

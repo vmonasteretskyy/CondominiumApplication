@@ -197,3 +197,10 @@
 .icon-info-hovering:hover:after {
 	opacity: 0;
 }
+
+.slink:hover .icon-info-hovering:before {
+	filter: contrast(1) brightness(1);
+}
+.slink:hover .icon-info-hovering:after {
+	opacity: 0;
+}

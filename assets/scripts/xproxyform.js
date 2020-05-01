@@ -178,13 +178,16 @@ class CVote {
 				var elem = document.createElement("div");
 				elem.classList.add("vote-variant");
 				elem.classList.add("vote-cand");
+				elem.classList.add(parent.params.cands);
 				var span = document.createElement("span");
 				span.classList.add("h2");
+				span.classList.add(parent.params.namesElems);
 				span.innerHTML = text;
 				var num = document.createElement("div");
 				num.classList.add("vote-num");
-				var btn = document.createElement("button");
-				btn.classList.add("icon-cross");
+				num.classList.add(parent.params.nums);
+				// var btn = document.createElement("button");
+				// btn.classList.add("icon-cross");
 				// btn.classList.add("close-cand");
 				elem.append(span, num/*, btn*/);
 				
@@ -297,7 +300,6 @@ class CVote {
 						parent.notCands[cj].classList.remove("active");
 					}
 				}
-				console.log("bef", parent.whichNotCand, ci + 1);
 				if (parent.whichNotCand != ci + 1) {
 					parent.whichNotCand = ci + 1;
 					parent.notCands[ci].classList.add("active");
@@ -319,22 +321,28 @@ class CVote {
 	}
 }
 
-var VL = undefined;
+var generalV = undefined;
+var nonLeasedV = undefined;
 onLoaded.push(function() {
-	VL = new CVote({
-		curElemId: "vote-current",
+	nonLeasedV = new CVote({
+		curElemId: "vcurrent-non",
 
-		parent: "vote-cands",
+		parent: "vote-cands-non",
 
-		cands: "vote-cand",
-		namesElems: "vote-name",
-		nums: "vote-num",
+		cands: "vote-cand-non",
+		namesElems: "vote-name-non",
+		nums: "vote-num-non",
 		// close: "close-cand",
 
-		notCands: "vote-not-cand",
+		notCands: "vote-not-cand-non",
 		// notClose: "close-not-cand",
 
-		inputId: "input-optional-cand",
-		addId: "button-optional-cand",
+		inputId: "input-optional-cand-non",
+		addId: "button-optional-cand-non",
 	});
+
+	var a = document.getElementsByClassName("pg-elem")[0];
+	a.onchange = function() {
+		// alert("asd");
+	}
 });

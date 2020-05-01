@@ -31,6 +31,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 <section class="login">
 	<div class="wrap">
 		<div class="page-top">
@@ -196,48 +205,49 @@
 			<div class="pg-elem">
 				<div class="wrap">
 					<h1 class="icon-non-leased">Non-leased unit election</h1>
-					<p>Which cand(s) do you vote to elect for the &#60;<a class="link" onclick="openPopup('non-leased-popup')">non-leased voting unit director position</a>&#62; <i class="icon-info-hovering"></i> on the board?</p>
+					<p>Which cand(s) do you vote to elect for the <a class="slink" onclick="openPopup('non-leased-popup')"><span class="bef"><</span><span class="sunderline">non-leased voting unit director position</span><span class="aft">></span> <i class="icon-info-hovering"></i></a> on the board</p>
+					
 					<div class="input-top h3">
 						<p>You may vote for up to 0 cand(s)</p>
-						<p><span id="vote-current">0</span><span id="vote-limit">2</span> votes remaining</p>
+						<p><span id="vcurrent-non">0</span><span id="vote-limit">2</span> votes remaining</p>
 					</div>
 					<div class="vote-variants">
-						<div class="vote-cands" data-vote-limit="2">
+						<div class="vote-cands vote-cands-non" data-vote-limit="2">
 
 							<!-- begin cand example -->
-							<div class="vote-variant vote-cand">
-								<span class="h2 vote-name">Anthony Ing</span>
-								<div class="vote-num"></div>
-								<button type="button" class="icon-cross close-cand"></button>
+							<div class="vote-variant vote-cand vote-cand-non">
+								<span class="h2 vote-name-non">Anthony Ing</span>
+								<div class="vote-num vote-num-non"></div>
+								<!-- <button type="button" class="icon-cross close-cand"></button> -->
 							</div>
 							<!-- end cand example -->
 							<!-- begin cand example -->
-							<div class="vote-variant vote-cand">
-								<span class="h2 vote-name">Shirley Wang</span>
-								<div class="vote-num"></div>
-								<button type="button" class="icon-cross close-cand"></button>
+							<div class="vote-variant vote-cand vote-cand-non">
+								<span class="h2 vote-name-non">Shirley Wang</span>
+								<div class="vote-num vote-num-non"></div>
+								<!-- <button type="button" class="icon-cross close-cand"></button> -->
 							</div>
 							<!-- end cand example -->
 							<!-- begin cand example -->
-							<div class="vote-variant vote-cand">
-								<span class="h2 vote-name">Sutha Somasundaram</span>
-								<div class="vote-num"></div>
-								<button type="button" class="icon-cross close-cand"></button>
+							<div class="vote-variant vote-cand vote-cand-non">
+								<span class="h2 vote-name-non">Sutha Somasundaram</span>
+								<div class="vote-num vote-num-non"></div>
+								<!-- <button type="button" class="icon-cross close-cand"></button> -->
 							</div>
 							<!-- end cand example -->
 
 						</div>
 
 						<!-- begin cand example -->
-						<div class="vote-variant vote-not-cand">
+						<div class="vote-variant vote-not-cand vote-not-cand-non">
 							<span class="h2">I decline to vote</span>
-							<button type="button" class="icon-cross close-not-cand"></button>
+							<!-- <button type="button" class="icon-cross close-not-cand"></button> -->
 						</div>
 						<!-- end cand example -->
 						<!-- begin cand example -->
-						<div class="vote-variant vote-not-cand">
+						<div class="vote-variant vote-not-cand vote-not-cand-non">
 							<span class="h2">I authorize my proxy to vote on my behalf at the meeting</span>
-							<button type="button" class="icon-cross close-not-cand"></button>
+							<!-- <button type="button" class="icon-cross close-not-cand"></button> -->
 						</div>
 						<!-- end cand example -->
 
@@ -246,33 +256,40 @@
 						<p>Write-in cand (optional)</p>
 					</div>
 					<div class="vote-optional">
-						<input type="text" placeholder="Full name" id="input-optional-cand">
-						<button type="button" class="btn dark" id="button-optional-cand">Add</button>
+						<input type="text" placeholder="Full name" id="input-optional-cand-non">
+						<button type="button" class="btn dark" id="button-optional-cand-non">Add</button>
+					</div>
+				</div>
+				<div class="wrap">
+					<div class="btns-back-next">
+						<button class="btn security icon-arr-l pgnav-prev">Back</button>
+						<div class="votenav-progress">
+							<div class="votenav-text">
+								<span class="votenav-counter">1</span>
+								<span class="votenav-limit">3</span>
+							</div>
+							<div class="votenav-hider">
+								<div class="votenav-bar"></div>
+							</div>
+						</div>
+						<button class="btn accent icon-arr-l pgnav-next">Next step</button>
 					</div>
 				</div>
 			</div>
 			<!-- end-page-slide -->
 
 		</div>
-		<div class="wrap">
-			<div class="btns-back-next">
-				<button class="btn security icon-arr-l pgnav-prev">Back</button>
-				<div class="votenav-progress">
-					<div class="votenav-text">
-						<span class="votenav-counter">1</span>
-						<span class="votenav-limit">3</span>
-					</div>
-					<div class="votenav-hider">
-						<div class="votenav-bar"></div>
-					</div>
-				</div>
-				<button class="btn accent icon-arr-l pgnav-next">Next step</button>
-			</div>
-		</div>
 	</div>
 </section>
 
 <script src="./assets/scripts/xproxyform.js"></script>
+
+
+
+
+
+
+
 
 
 
