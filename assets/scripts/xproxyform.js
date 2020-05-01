@@ -60,17 +60,19 @@ class PgSlider {
 		slides: undefined,
 		prevs: undefined,
 		nexts: undefined,
-		conts: undefined,
+		navElem: undefined,
 	}) {
 		this.params = params;
+		var parent = this;
 		this.hider = document.getElementById(this.params.hiderId);
 		this.slider = document.getElementById(this.params.sliderId);
 		this.slides = document.getElementsByClassName(this.params.slides);
 		this.prevs = document.getElementsByClassName(this.params.prevs);
 		this.nexts = document.getElementsByClassName(this.params.nexts);
-		this.conts = document.getElementsByClassName(this.params.conts);
+		this.navElem = document.getElementsByClassName(this.params.navElem);
 
-		this.now = 0;
+		this.counter = 0;
+		this.counterP = 0;
 		this.amount = this.slides.length;
 		this.allowNext = new Array(this.amount).fill(false);
 
@@ -82,27 +84,39 @@ class PgSlider {
 			const ci = i;
 			var parent = this;
 			this.prevs[ci].onclick = function() {
-
+				if (parent.counter > 0) {
+					parent.counter--;
+					parent.transform();
+				}
 			}
 			
 		}
-
 		for (var i = 0; i < this.nexts.length; i++) {
 			const ci = i;
 			var parent = this;
 			this.nexts[ci].onclick = function() {
-
+				if (parent.counter < parent.amount - 1) {
+					parent.counter++;
+					parent.transform();
+				}
 			}
 			
 		}
-
-		for (var i = 0; i < this.conts.length; i++) {
-			const ci = i;
-			var parent = this;
-			this.conts[ci].onclick = function() {
-
-			}
+	}
+	onResize() {
+		this.transform();
+	}
+	transform() {
+		// console.log("a", this.slider, "translateX(" + (-this.counter * Info.vw) + "px)");
+		this.slider.style.transform = "translateX(" + (-this.counter * Info.vw) + "px)"; 
+		
+		if (this.counter < this.counterP) {
+			this.navElem[this.counter].classList.add("checked");
+			this.navElem[this.counterP-1].classList.remove("checked");
+		} else {
+			this.navElem[this.counter - 1].classList.add("checked");
 		}
+		this.counterP = this.counter;
 	}
 }
 
@@ -111,10 +125,10 @@ onLoaded.push(function() {
 	pgSlider = new PgSlider({
 		hiderId: "pg-slider-hider",
 		sliderId: "pg-slider",
-		slides: "pg-slide",
+		slides: "pg-elem",
 		prevs: "pgnav-prev",
 		nexts: "pgnav-next",
-		conts: "pg-cont",
+		navElem: "left-pr-elem",
 	});
 });
 
@@ -341,8 +355,4 @@ onLoaded.push(function() {
 		addId: "button-optional-cand-non",
 	});
 
-	var a = document.getElementsByClassName("pg-elem")[0];
-	a.onchange = function() {
-		// alert("asd");
-	}
 });

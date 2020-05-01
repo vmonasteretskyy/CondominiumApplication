@@ -764,12 +764,16 @@ body.voting .right {
 #pg-slider {
 	position: relative;
 	display: flex;
+	transition: transform 0.3s ease;
 }
 .pg-elem {
 	width: 100%;
 	flex-shrink: 0;
 }
-.xproxyform .icon-non-leased:before {
+/* .xproxyform .icon-non-leased:before {
+	margin: 1px 10px 0 2px;
+} */
+.xproxyform h1:before {
 	margin: 1px 10px 0 2px;
 }
 .xproxyform h1 + p {
@@ -889,7 +893,15 @@ body.voting .right {
 	content: "/";
 }
 
+.pg-elem.next .pgnav-next {
+	opacity: 1;
+	pointer-events: auto;
+}
+.pg-elem:first-child .pgnav-prev {
+	display: none;
+}
 .pg-elem .pgnav-next {
-
+	opacity: 0.4;
+	pointer-events: none;
 }
 /*-e-XProxyForm-------------------------------------*/

@@ -83,7 +83,7 @@
 	</div>
 	<div class="left-pr">
 		<!-- begin press element -->
-		<div class="left-pr-elem checked">
+		<div class="left-pr-elem">
 			<div class="left-pr-elem-icon icon-check"></div>
 			<span class="h2">Step 1</span>
 			<span class="smaller gray">Overview</span>
@@ -160,11 +160,17 @@
 		<div id="pg-slider">
 
 			<!-- begin-page-slide -->
-			<!-- <div class="pg-elem">
+			<div class="pg-elem next">
 				<div class="wrap">
-
+					<h1 class="icon-forum">Quorum</h1>
 				</div>
-			</div> -->
+				<div class="wrap">
+					<div class="btns-back-next">
+						<button class="btn security icon-arr-l pgnav-prev">Back</button>
+						<button class="btn accent icon-arr-l pgnav-next">Next step</button>
+					</div>
+				</div>
+			</div>
 			<!-- end-page-slide -->
 
 			<!-- begin-page-slide -->

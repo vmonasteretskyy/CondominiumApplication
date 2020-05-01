@@ -94,21 +94,16 @@ onLoaded.push(function() {
 	for (var i = 0; i < close.length; i++) {
 		const ci = i;
 		close[ci].onclick = function() {
-			console.log(this, this.closest(".parent-calc-h"))
 			this.closest(".parent-calc-h").classList.add("hidden");
 		}
-		
 	}
 });
 function openHPopup(idDesc, idMob) {
 	var elem = undefined;
-	console.log(idDesc, idMob)
 	if (!idMob) { 
 		elem = document.getElementById(idDesc);
 	} else {
-		console.log("else")
 		if (Info.mob) {
-			console.log("mob--")
 			elem = document.getElementById(idMob);
 			elem.classList.add("active");
 			Eclipse.arr.push(elem);
