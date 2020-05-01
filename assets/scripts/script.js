@@ -1,7 +1,7 @@
 var Info = {
 	vw: 0,
 	vh: 0,
-	mobile: false,
+	mob: false,
 }
 var Eclipse = {
 	elem: undefined,
@@ -66,7 +66,7 @@ function openPopup(idDesc, idMob = undefined) {
 	if (!idMob) { 
 		elem = document.getElementById(idDesc);
 	} else {
-		if (Info.mobile) {
+		if (Info.mob) {
 			elem = document.getElementById(idMob);
 		} else {
 			elem = document.getElementById(idDesc);
@@ -106,7 +106,9 @@ function openHPopup(idDesc, idMob) {
 	if (!idMob) { 
 		elem = document.getElementById(idDesc);
 	} else {
-		if (Info.mobile) {
+		console.log("else")
+		if (Info.mob) {
+			console.log("mob--")
 			elem = document.getElementById(idMob);
 			elem.classList.add("active");
 			Eclipse.arr.push(elem);
