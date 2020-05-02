@@ -354,5 +354,43 @@ onLoaded.push(function() {
 		inputId: "input-optional-cand-non",
 		addId: "button-optional-cand-non",
 	});
+});
 
+onLoaded.push(function() {
+	//-b-page-quorum----------------
+	var Quorum = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+		attention: undefined,
+		isAttention: false,
+	};
+	Quorum.elem = document.getElementById("quorum");
+	Quorum.elems = Quorum.elem.getElementsByClassName("radio");
+	Quorum.attention = document.getElementById("quorum-attention");
+	for (var i = 0; i < Quorum.elems.length; i++) {
+		const ci = i;
+		Quorum.elems[0].onclick = function() {
+			if (!Quorum.next) {
+				Quorum.elem.classList.add("next");
+				Quorum.next = true;
+			}
+			if(Quorum.isAttention) {
+				Quorum.attention.classList.remove("active");
+				Quorum.isAttention = false;
+			}
+		}
+		Quorum.elems[1].onclick = function() {
+			if (Quorum.next) {
+				Quorum.elem.classList.remove("next");
+				Quorum.next = false;
+			}
+			if(!Quorum.isAttention) {
+				Quorum.attention.classList.add("active");
+				Quorum.isAttention = true;
+			}
+		}
+		
+	}
+	//-e-page-quorum----------------
 });

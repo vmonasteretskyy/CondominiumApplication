@@ -203,6 +203,10 @@ button:focus {
 	position: relative;
 	display: flex;
 }
+.radiotext {
+	margin: auto 0 auto 22px;
+	font-weight: 500;
+}
 .radio input {
 	position: absolute;
 	cursor: pointer;
@@ -212,13 +216,13 @@ button:focus {
 }
 .radiomark {
 	position: relative;
-	border-radius: 50%;
 	width: 28px;
 	height: 28px;
-	border-radius: 2px; 
+	border-radius: 50%;
 	border: 2px solid var(--main-dark);
 }
 .radiomark:before {
+	content: "";
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -299,6 +303,7 @@ input:invalid, input.invalid {
 	display: none;
 }
 .wrap {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	width: 600px;
@@ -566,6 +571,67 @@ input:invalid, input.invalid {
 
 
 
+
+/*-b-quorum-----------------------------------------*/
+.radio-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 22px;
+}
+.radio-container .radio {
+	padding: 13px 20px;
+	border-radius: 4px;
+	background-color: #fff;
+	box-shadow: 0px 4px 8px var(--main-dark-008);
+	display: flex;
+	align-items: center;
+	margin: 0 0 4px;
+}
+.radio-container .radio:last-child {
+	margin: 0;
+}
+
+.radio-attention {
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	width: 492px;
+	box-sizing: border-box;
+	padding: 0 0 0 30px;
+	transform: translate(-50%, 100%);
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.radio-attention.active {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+.radio-attention i {
+	position: absolute;
+	top: 4px;
+	left: 0;
+	display: flex;
+}
+.radio-attention i:before {
+	font-size: 20px;
+}
+.radio-attention .h3 {
+	color: var(--medium-gray);
+}
+/*-e-quorum-----------------------------------------*/
+
+
+
+
+
+
+
+
+
+
 /*-b-XProxyForm-------------------------------------*/
 /*-b-left---*/
 .left {
@@ -694,7 +760,7 @@ body.voting .right {
 	align-items: center;
 }
 .right-top-inner {
-	padding: 32px 32px 30px;
+	padding: 32px 27px 30px 32px;
 }
 .right-top i {
 	margin: 0 11px 0 0;
