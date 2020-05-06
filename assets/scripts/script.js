@@ -142,3 +142,68 @@ onLoaded.push(function() {
 		}
 	}
 });
+
+
+
+/*--------------------------------------------------*/
+/*-b-classes----------------------------------------*/
+class DnD {
+	constructor(params = {
+		blockId: undefined,
+		inputId: undefined,
+		formats: [],
+		maxSizeMb: 0,
+	}) {
+		this.params = params;
+		this.block = document.getElementById(this.params.blockId);
+		this.input = document.getElementById(this.params.inputId);
+		
+		this.mb = 1048576;
+
+		this.file = undefined;
+
+		this.block.addEventListener('dragenter', this.areaDragEnter, false)
+		this.block.addEventListener('dragleave', this.areaDragLeave, false)
+		this.block.addEventListener('dragover', this.areaDragOver, false)
+		this.block.addEventListener('drop', {handleEvent: this.areaDrop, father: this}, false)
+	}
+	areaDragEnter(e) {
+		e.preventDefault();
+	}
+	areaDragLeave(e) {
+		e.preventDefault();
+	}
+	areaDragOver(e) {
+		e.preventDefault();
+	}
+	areaDrop(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.father.file = e.dataTransfer.files[0];
+
+		/* 1mb = 1 048 576 b */
+		if (this.father.file.size > this.father.mb * this.father.params.maxSizeMb) {
+			this.father.file = undefined;
+			alert("File has more than", this.father.mb * this.father.params.maxSizeMb, "Mb");
+			return;
+		} 
+		
+		var filetype = this.father.file.name.substr(this.father.file.name.lastIndexOf(".") + 1);
+		if (!this.father.params.formats.includes(filetype)) {
+			this.father.file = undefined;
+			alert("Filetype is not supported");
+			return;
+		}
+	}
+	cFetch(files) {
+		// fetch(url, [options])
+		//.then(response => response.json())
+		//.then(result => /* обрабатываем результат */)
+	}
+	
+} 
+
+
+/*-e-classes----------------------------------------*/
+/*--------------------------------------------------*/

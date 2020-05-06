@@ -60,7 +60,9 @@ class PgSlider {
 		slides: undefined,
 		prevs: undefined,
 		nexts: undefined,
+		navParentId: undefined,
 		navElem: undefined,
+		navElemH: 0,
 	}) {
 		this.params = params;
 		var parent = this;
@@ -69,16 +71,22 @@ class PgSlider {
 		this.slides = document.getElementsByClassName(this.params.slides);
 		this.prevs = document.getElementsByClassName(this.params.prevs);
 		this.nexts = document.getElementsByClassName(this.params.nexts);
+
+		this.navParent = document.getElementById(this.params.navParentId);
 		this.navElem = document.getElementsByClassName(this.params.navElem);
 
 		this.counter = 0;
 		this.counterP = 0;
+		this.navCounter = 0;
+
 		this.amount = this.slides.length;
 		this.allowNext = new Array(this.amount).fill(false);
 
 		this.allowNext[0] = true;
-		
-		console.log(this)
+
+		this.onResize();
+
+
 
 		for (var i = 0; i < this.prevs.length; i++) {
 			const ci = i;
@@ -103,20 +111,43 @@ class PgSlider {
 			
 		}
 	}
+
 	onResize() {
+		this.slider.style.width = this.slides.length * 100 + "vw";
 		this.transform();
 	}
+
 	transform() {
 		// console.log("a", this.slider, "translateX(" + (-this.counter * Info.vw) + "px)");
 		this.slider.style.transform = "translateX(" + (-this.counter * Info.vw) + "px)"; 
-		
+		this.checkLeft();
+		this.counterP = this.counter;
+	}
+
+	checkLeft() {
 		if (this.counter < this.counterP) {
 			this.navElem[this.counter].classList.add("checked");
 			this.navElem[this.counterP-1].classList.remove("checked");
-		} else {
+			if (this.counter - 2 < this.navCounter) {
+				this.navCounter--;
+				this.navParent.scroll({
+					top: this.navCounter * this.params.navElemH,
+					left: 0,
+					behavior: 'smooth'
+				});
+			}
+		} else if (this.counter != 0) {
 			this.navElem[this.counter - 1].classList.add("checked");
+			if (this.counter - 2 > this.navCounter) {
+				this.navCounter++;
+				this.navParent.scroll({
+					top: this.navCounter * this.params.navElemH,
+					left: 0,
+					behavior: 'smooth'
+				});
+			}
 		}
-		this.counterP = this.counter;
+		return;
 	}
 }
 
@@ -128,15 +159,22 @@ onLoaded.push(function() {
 		slides: "pg-elem",
 		prevs: "pgnav-prev",
 		nexts: "pgnav-next",
+		navParentId: "left-pr",
 		navElem: "left-pr-elem",
+		navElemH: 82,
 	});
+	onResize.push(function() {
+		pgSlider.onResize();
+	})
 });
 
 class CVote {
 	constructor(params = {
+		slideParentId: undefined,
+
 		curElemId: undefined,
 
-		parent: undefined,
+		parentId: undefined,
 
 		cands: undefined,
 		namesElems: undefined,
@@ -149,7 +187,7 @@ class CVote {
 		inputId: undefined,
 		addId: undefined,
 	}) {
-		if (!params.curElemId || !params.parent || !params.cands) {console.warn("Can't init page slider");return;}
+		if (!params.curElemId || !params.parentId || !params.cands) {console.warn("Can't init page slider");return;}
 		this.params = params;
 		var parent = this;
 
@@ -165,7 +203,8 @@ class CVote {
 
 		this.result = undefined;
 
-		this.parent = document.getElementsByClassName(this.params.parent)[0];
+		this.parent = document.getElementById(this.params.parentId);
+		this.slideParent = document.getElementById(this.params.slideParentId);
 		this.initVoteCandsLink();
 		this.curElem = document.getElementById(this.params.curElemId);
 		this.notCands = document.getElementsByClassName(this.params.notCands);
@@ -272,6 +311,7 @@ class CVote {
 						parent.cands[ci].classList.remove("active");
 					}
 				}
+				parent.checkNext();
 			}
 			// this.close[ci].onclick = function(e) {
 			// 	e.stopPropagation();
@@ -321,12 +361,21 @@ class CVote {
 					parent.notCands[ci].classList.remove("active");
 					parent.whichNotCand = 0;
 				}
+				parent.checkNext();
 			}
 			// this.notClose[ci].onclick = function(e) {
 			// 	e.stopPropagation();
 			// 	parent.notCands[ci].classList.remove("active");
 			// 	parent.whichNotCand = 0;
 			// }
+		}
+	}
+
+	checkNext() {
+		if(this.count != 0 || this.whichNotCand != 0) {
+			this.slideParent.classList.add("next");
+		} else {
+			this.slideParent.classList.remove("next");
 		}
 	}
 
@@ -338,10 +387,30 @@ class CVote {
 var generalV = undefined;
 var nonLeasedV = undefined;
 onLoaded.push(function() {
+	generalV = new CVote({
+		slideParentId: "general-leased",
+
+		curElemId: "vcurrent-gen",
+
+		parentId: "vote-cands-gen",
+
+		cands: "vote-cand-gen",
+		namesElems: "vote-name-gen",
+		nums: "vote-num-gen",
+		// close: "close-cand",
+
+		notCands: "vote-not-cand-gen",
+		// notClose: "close-not-cand",
+
+		inputId: "input-optional-cand-gen",
+		addId: "button-optional-cand-gen",
+	});
 	nonLeasedV = new CVote({
+		slideParentId: "non-leased",
+
 		curElemId: "vcurrent-non",
 
-		parent: "vote-cands-non",
+		parentId: "vote-cands-non",
 
 		cands: "vote-cand-non",
 		namesElems: "vote-name-non",
@@ -353,6 +422,16 @@ onLoaded.push(function() {
 
 		inputId: "input-optional-cand-non",
 		addId: "button-optional-cand-non",
+	});
+});
+
+var XProxyUpload = undefined;
+onLoaded.push(function() {
+	XProxyUpload = new DnD({
+		blockId: "upblock-doc-upload",
+		inputId: "input-doc-upload", 
+		formats: ["docx", "pdf", "jpg", "png", "zip"],
+		maxSizeMb: 5,
 	});
 });
 
@@ -368,29 +447,158 @@ onLoaded.push(function() {
 	Quorum.elem = document.getElementById("quorum");
 	Quorum.elems = Quorum.elem.getElementsByClassName("radio");
 	Quorum.attention = document.getElementById("quorum-attention");
-	for (var i = 0; i < Quorum.elems.length; i++) {
-		const ci = i;
-		Quorum.elems[0].onclick = function() {
-			if (!Quorum.next) {
-				Quorum.elem.classList.add("next");
-				Quorum.next = true;
-			}
-			if(Quorum.isAttention) {
-				Quorum.attention.classList.remove("active");
-				Quorum.isAttention = false;
-			}
+
+	Quorum.elems[0].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (!Quorum.next) {
+			Quorum.elem.classList.add("next");
+			Quorum.next = true;
 		}
-		Quorum.elems[1].onclick = function() {
-			if (Quorum.next) {
-				Quorum.elem.classList.remove("next");
-				Quorum.next = false;
-			}
-			if(!Quorum.isAttention) {
-				Quorum.attention.classList.add("active");
-				Quorum.isAttention = true;
-			}
+		if(Quorum.isAttention) {
+			Quorum.attention.classList.remove("active");
+			Quorum.isAttention = false;
 		}
-		
+	}
+	Quorum.elems[1].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (Quorum.next) {
+			Quorum.elem.classList.remove("next");
+			Quorum.next = false;
+		}
+		if(!Quorum.isAttention) {
+			Quorum.attention.classList.add("active");
+			Quorum.isAttention = true;
+		}
 	}
 	//-e-page-quorum----------------
+
+	//-b-multiple-units-------------
+	var MulUn = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+	};	
+	MulUn.elem = document.getElementById("mul-un");
+	MulUn.elems = MulUn.elem.getElementsByClassName("radio");
+	
+	MulUn.elems[0].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (!MulUn.next) {
+			MulUn.elem.classList.add("next");
+			MulUn.next = true;
+		}
+	}
+	MulUn.elems[1].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (!MulUn.next) {
+			MulUn.elem.classList.add("next");
+			MulUn.next = true;
+		}
+	}
+	//-e-multiple-units-------------
+
+	//-b-r-u-owner-non--------------
+	var RUOwner = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+	};	
+	RUOwner.elem = document.getElementById("r-u-owner-non");
+	RUOwner.elems = RUOwner.elem.getElementsByClassName("radio");
+	
+	RUOwner.elems[0].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (!RUOwner.next) {
+			RUOwner.elem.classList.add("next");
+			RUOwner.next = true;
+		}
+	}
+	RUOwner.elems[1].onclick = function() {
+		if (!this.getElementsByTagName("input")[0].checked) return;
+		if (!RUOwner.next) {
+			RUOwner.elem.classList.add("next");
+			RUOwner.next = true;
+		}
+	}
+	//-e-r-u-owner-non--------------
+	
+	//-b-by-laws--------------------
+	var ByLaws = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+	};	
+	ByLaws.elem = document.getElementById("by-laws");
+	ByLaws.elems = ByLaws.elem.getElementsByClassName("radio");
+	for (var i = 0; i < ByLaws.elems.length; i++) {
+		const ci = i;
+		ByLaws.elems[ci].onclick = function() {
+			if (!ByLaws.next) {
+				ByLaws.elem.classList.add("next");
+				ByLaws.next = true;
+			}
+		}
+	}
+	//-e-by-laws--------------------
+	
+	//-b-holder-1-------------------
+	var PHolder1 = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+	};	
+	PHolder1.elem = document.getElementById("p-holder-1");
+	PHolder1.elems = PHolder1.elem.getElementsByClassName("radio");
+	for (var i = 0; i < PHolder1.elems.length; i++) {
+		const ci = i;
+		PHolder1.elems[ci].onclick = function() {
+			if (!this.getElementsByTagName("input")[0].checked) return;
+			if (!PHolder1.next) {
+				PHolder1.elem.classList.add("next");
+				PHolder1.next = true;
+			}
+		}
+	}
+	//-e-holder-1-------------------
+	
+	//-b-holder-2-------------------
+	var PHolder2 = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+	};	
+	PHolder2.elem = document.getElementById("p-holder-2");
+	PHolder2.elems = PHolder2.elem.getElementsByClassName("radio");
+	for (var i = 0; i < PHolder2.elems.length; i++) {
+		const ci = i;
+		PHolder2.elems[ci].onclick = function() {
+			if (!this.getElementsByTagName("input")[0].checked) return;
+			if (!PHolder2.next) {
+				PHolder2.elem.classList.add("next");
+				PHolder2.next = true;
+			}
+		}
+	}
+	//-e-holder-2-------------------
+	
+	//-b-doc-upload-----------------
+	var DocUpload = {
+		elem: undefined,
+		elems: undefined,
+		next: false,
+		file: false,
+	};	
+	PHolder2.elem = document.getElementById("p-holder-2");
+	PHolder2.elems = PHolder2.elem.getElementsByClassName("radio");
+	for (var i = 0; i < PHolder2.elems.length; i++) {
+		const ci = i;
+		PHolder2.elems[ci].onclick = function() {
+			if (!this.getElementsByTagName("input")[0].checked) return;
+			if (!PHolder2.next) {
+				PHolder2.elem.classList.add("next");
+				PHolder2.next = true;
+			}
+		}
+	}
+	//-e-doc-upload-----------------
 });
